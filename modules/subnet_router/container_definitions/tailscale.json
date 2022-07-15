@@ -1,0 +1,53 @@
+{
+    "environment": [
+        {
+            "name": "TAILSCALE_HOSTNAME",
+            "value": "${hostname}"
+        },
+        {
+            "name": "TAILSCALE_ADVERTISE_ROUTES",
+            "value": "${advertise_routes}"
+        }
+    ],
+    "secrets": [
+        {
+            "name": "TAILSCALE_AUTH_KEY",
+            "valueFrom": "${auth_key_secret_id}"
+        }
+    ],
+    "essential": true,
+    "image": "${image_id}",
+    "cpu": 256,
+    "memory": 512,
+    "memoryReservation": 512,
+    "name": "tailscale",
+    "portMappings": [],
+    "mountPoints": [
+        {
+            "containerPath": "/var/lib/tailscale",
+            "sourceVolume": "${volume_name}",
+            "readOnly": false
+        }
+    ],
+    "healthcheck": {
+        "command": [
+            "tailscale",
+            "status"
+        ],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 0
+    },
+    "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+            "awslogs-group": "${logs_group}",
+            "awslogs-region": "us-east-2",
+            "awslogs-stream-prefix": "ecs"
+        }
+    },
+    "linuxParameters": {
+        "initProcessEnabled": true
+    }
+}
