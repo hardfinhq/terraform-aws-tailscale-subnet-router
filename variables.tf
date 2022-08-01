@@ -51,3 +51,13 @@ variable "tailscale_docker_tag" {
   type        = string
   description = "The name of tag for the Docker image stored in ECR"
 }
+
+# The `enable_execute_command` allows AWS ECS exec into the task containers.
+# See:
+# - https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-exec.html
+# - https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html
+variable "enable_execute_command" {
+  type        = bool
+  default     = false
+  description = "Allows AWS ECS exec into the task containers"
+}

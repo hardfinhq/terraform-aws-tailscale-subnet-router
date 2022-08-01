@@ -12,16 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-module "subnet_router" {
-  source = "./modules/subnet_router"
-
-  vpc                         = var.vpc
-  subnet_group                = var.subnet_group
-  assign_public_ip            = var.assign_public_ip
-  security_group_ids          = var.security_group_ids
-  target_ecs_cluster          = var.target_ecs_cluster
-  tailscale_auth_key_secret   = var.tailscale_auth_key_secret
-  tailscale_docker_repository = var.tailscale_docker_repository
-  tailscale_docker_tag        = var.tailscale_docker_tag
-  enable_execute_command      = var.enable_execute_command
+output "tailscale_ecs_task_role_name" {
+  value = module.subnet_router.tailscale_ecs_task_role_name
 }

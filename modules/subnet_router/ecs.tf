@@ -53,12 +53,13 @@ data "aws_ecs_cluster" "target" {
 }
 
 resource "aws_ecs_service" "tailscale" {
-  name                  = "tailscale"
-  cluster               = data.aws_ecs_cluster.target.id
-  task_definition       = aws_ecs_task_definition.tailscale.arn
-  desired_count         = 1
-  wait_for_steady_state = true
-  launch_type           = "FARGATE"
+  name                   = "tailscale"
+  cluster                = data.aws_ecs_cluster.target.id
+  task_definition        = aws_ecs_task_definition.tailscale.arn
+  desired_count          = 1
+  wait_for_steady_state  = true
+  launch_type            = "FARGATE"
+  enable_execute_command = var.enable_execute_command
 
   deployment_circuit_breaker {
     enable   = false
