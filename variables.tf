@@ -23,8 +23,16 @@ variable "subnet_group" {
 }
 
 variable "assign_public_ip" {
-  type        = bool
-  description = "The 'assign_public_ip' flag for the ECS task network configuration"
+  type    = bool
+  default = false
+
+  description = <<-EOT
+  The 'assign_public_ip' flag for the ECS task network configuration.
+
+  The `assign_public_ip` is necessary to be able to pull from ECR when the
+  containers come up. Alternatively, AWS PrivateLink can be used or the ECS task
+  can be placed in a private subnet that routes traffic through a NAT gateway.
+  EOT
 }
 
 variable "security_group_ids" {
@@ -52,12 +60,16 @@ variable "tailscale_docker_tag" {
   description = "The name of tag for the Docker image stored in ECR"
 }
 
-# The `enable_execute_command` allows AWS ECS exec into the task containers.
-# See:
-# - https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-exec.html
-# - https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html
 variable "enable_execute_command" {
-  type        = bool
-  default     = false
-  description = "Allows AWS ECS exec into the task containers"
+  type    = bool
+  default = false
+
+  description = <<-EOT
+  Allows AWS ECS exec into the task containers.
+
+  The `enable_execute_command` field allows AWS ECS exec into the task
+  containers. See:
+  - https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-exec.html
+  - https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html
+  EOT
 }

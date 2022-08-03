@@ -13,5 +13,6 @@
 # limitations under the License.
 
 output "tailscale_ecs_task_role_name" {
-  value = module.subnet_router.tailscale_ecs_task_role_name
+  value       = module.subnet_router.tailscale_ecs_task_role_name
+  description = "The name of the IAM role created for the ECS task that runs Tailscale"
 }
