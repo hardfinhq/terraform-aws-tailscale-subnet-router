@@ -22,7 +22,7 @@ locals {
     image_id           = "${data.aws_ecr_repository.tailscale.repository_url}@${data.aws_ecr_image.tailscale.id}"
     volume_name        = local.tailscale_volume_name
     logs_group         = aws_cloudwatch_log_group.tailscale.name
-    logs_region        = "us-east-2"
+    logs_region        = local.aws_region_name
   })
 }
 
