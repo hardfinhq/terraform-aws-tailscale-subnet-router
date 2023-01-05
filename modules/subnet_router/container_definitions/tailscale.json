@@ -43,7 +43,7 @@
         "logDriver": "awslogs",
         "options": {
             "awslogs-group": "${logs_group}",
-            "awslogs-region": "us-east-2",
+            "awslogs-region": "${logs_region}",
             "awslogs-stream-prefix": "ecs"
         }
     },
