@@ -20,7 +20,7 @@ docker build \
 
 # Optionally override the tag for the base `tailscale/tailscale` image
 docker build \
-  --build-arg TAILSCALE_TAG=v1.29.18 \
+  --build-arg TAILSCALE_TAG=v1.34.0 \
   --tag tailscale-subnet-router:v1.20220802.1 \
   --file ./_docker/tailscale.Dockerfile \
   .
