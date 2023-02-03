@@ -56,3 +56,9 @@ variable "enable_execute_command" {
   type        = bool
   description = "Allows AWS ECS exec into the task containers"
 }
+
+variable "additional_routes" {
+  type        = list(string)
+  default     = []
+  description = "A list of additional CIDR blocks to pass to Tailscale as routes to advertise"
+}
