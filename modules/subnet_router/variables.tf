@@ -56,3 +56,15 @@ variable "enable_execute_command" {
   type        = bool
   description = "Allows AWS ECS exec into the task containers"
 }
+
+variable "additional_routes" {
+  type        = list(string)
+  default     = []
+  description = "A list of additional CIDR blocks to pass to Tailscale as routes to advertise"
+}
+
+variable "cpu_architecture" {
+  type        = string
+  default     = "X86_64"
+  description = "The CPU architecture to use for the container. Either X86_64 or ARM64."
+}
