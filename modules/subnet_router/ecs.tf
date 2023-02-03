@@ -47,6 +47,11 @@ resource "aws_ecs_task_definition" "tailscale" {
       transit_encryption = "ENABLED"
     }
   }
+
+  runtime_platform {
+    operating_system_family = "LINUX"
+    cpu_architecture        = var.cpu_architecture
+  }
 }
 
 data "aws_ecs_cluster" "target" {
