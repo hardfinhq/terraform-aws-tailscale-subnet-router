@@ -17,7 +17,7 @@ locals {
   tailscale_definition_path = abspath("${path.module}/container_definitions/tailscale.json")
   tailscale_container_json = templatefile(local.tailscale_definition_path, {
     hostname           = "${var.vpc}-tailscale"
-    advertise_routes   = join(",", concat([data.aws_vpc.ecs.cidr_block], var.additional_routes))
+    advertise_routes   = join(",", concat(data.aws_vpc.ecs.cidr_block, var.additional_routes))
     auth_key_secret_id = data.aws_secretsmanager_secret.tailscale_auth_key.id
     image_id           = "${data.aws_ecr_repository.tailscale.repository_url}@${data.aws_ecr_image.tailscale.id}"
     volume_name        = local.tailscale_volume_name
