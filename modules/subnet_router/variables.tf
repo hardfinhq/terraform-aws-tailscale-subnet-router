@@ -68,3 +68,9 @@ variable "cpu_architecture" {
   default     = "X86_64"
   description = "The CPU architecture to use for the container. Either X86_64 or ARM64."
 }
+
+variable "additional_flags" {
+  type        = string
+  default     = ""
+  description = "Additional flags to pass to the tailscale up command"
+}

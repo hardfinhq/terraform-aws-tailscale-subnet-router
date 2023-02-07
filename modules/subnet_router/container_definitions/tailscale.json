@@ -7,6 +7,10 @@
         {
             "name": "TAILSCALE_ADVERTISE_ROUTES",
             "value": "${advertise_routes}"
+        },
+        {
+            "name": "TAILSCALE_ADDITIONAL_FLAGS",
+            "value": "${additional_flags}"
         }
     ],
     "secrets": [
