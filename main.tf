@@ -24,4 +24,6 @@ module "subnet_router" {
   tailscale_docker_repository = var.tailscale_docker_repository
   tailscale_docker_tag        = var.tailscale_docker_tag
   enable_execute_command      = var.enable_execute_command
+  additional_routes           = var.additional_routes
+  cpu_architecture            = var.cpu_architecture
 }
