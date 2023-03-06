@@ -73,3 +73,15 @@ variable "enable_execute_command" {
   - https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html
   EOT
 }
+
+variable "additional_routes" {
+  type        = list(string)
+  default     = []
+  description = "A list of additional CIDR blocks to pass to Tailscale as routes to advertise"
+}
+
+variable "cpu_architecture" {
+  type        = string
+  default     = "X86_64"
+  description = "The CPU architecture to use for the container. Either X86_64 or ARM64."
+}
