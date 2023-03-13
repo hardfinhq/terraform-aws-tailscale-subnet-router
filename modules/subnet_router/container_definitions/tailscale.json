@@ -21,9 +21,9 @@
     ],
     "essential": true,
     "image": "${image_id}",
-    "cpu": "${cpu}",
-    "memory": "${memory}",
-    "memoryReservation": "${memory}",
+    "cpu": ${cpu},
+    "memory": ${memory},
+    "memoryReservation": ${memory},
     "name": "tailscale",
     "portMappings": [],
     "mountPoints": [
