@@ -16,7 +16,7 @@ locals {
   tailscale_volume_name     = "var-lib-tailscale"
   tailscale_definition_path = abspath("${path.module}/container_definitions/tailscale.json")
   tailscale_container_json = templatefile(local.tailscale_definition_path, {
-    hostname           = "${var.vpc}-tailscale"
+    hostname           = "${var.name}-tailscale"
     advertise_routes   = join(",", concat([data.aws_vpc.ecs.cidr_block], var.additional_routes))
     additional_flags   = var.additional_flags
     auth_key_secret_id = data.aws_secretsmanager_secret.tailscale_auth_key.id
@@ -28,7 +28,7 @@ locals {
 }
 
 resource "aws_ecs_task_definition" "tailscale" {
-  family                   = "${var.vpc}-tailscale"
+  family                   = "${var.name}-tailscale"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = var.cpu

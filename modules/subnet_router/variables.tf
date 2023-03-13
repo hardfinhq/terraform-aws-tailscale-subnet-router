@@ -84,3 +84,8 @@ variable "memory" {
   default     = "512"
   description = "The memory value to assign to the container (MiB)"
 }
+variable "name" {
+  type = string
+  default = ""
+  description = "The name of the subnet router deployment"
+}
