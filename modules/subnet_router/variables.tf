@@ -14,7 +14,7 @@
 
 variable "name" {
   type        = string
-  default     = ""
+  default     = null
   description = "The name of the subnet router deployment. If unspecified the vpc name will be used."
 }
 
@@ -80,11 +80,13 @@ variable "additional_flags" {
   default     = ""
   description = "Additional flags to pass to the tailscale up command"
 }
+
 variable "cpu" {
   type        = string
   default     = "256"
   description = "The CPU value to assign to the container (vCPU)"
 }
+
 variable "memory" {
   type        = string
   default     = "512"

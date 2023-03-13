@@ -25,7 +25,7 @@ locals {
     logs_group         = aws_cloudwatch_log_group.tailscale.name
     logs_region        = local.aws_region_name
   })
-  name = var.name != "" ? var.name : "${var.vpc}-tailscale"
+  name = var.name != null ? var.name : "${var.vpc}-tailscale"
 }
 
 resource "aws_ecs_task_definition" "tailscale" {
