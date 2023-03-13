@@ -31,8 +31,8 @@ resource "aws_ecs_task_definition" "tailscale" {
   family                   = "${var.vpc}-tailscale"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
-  cpu                      = "256" # 0.25 vCPU (256/1024)
-  memory                   = "512" # 512 MiB == 0.5 GiB
+  cpu                      = var.cpu
+  memory                   = var.memory
   execution_role_arn       = aws_iam_role.ecs_task_execution_tailscale.arn
   task_role_arn            = aws_iam_role.ecs_task_tailscale.arn
 

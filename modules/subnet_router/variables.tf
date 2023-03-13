@@ -74,3 +74,13 @@ variable "additional_flags" {
   default     = ""
   description = "Additional flags to pass to the tailscale up command"
 }
+variable "cpu" {
+  type        = string
+  default     = "256"
+  description = "The CPU value to assign to the container (vCPU)"
+}
+variable "memory" {
+  type        = string
+  default     = "512"
+  description = "The memory value to assign to the container (MiB)"
+}
