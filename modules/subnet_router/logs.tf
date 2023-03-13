@@ -13,7 +13,7 @@
 # limitations under the License.
 
 resource "aws_cloudwatch_log_group" "tailscale" {
-  name = "/ecs/${var.vpc}-tailscale"
+  name = "/ecs/${local.name}"
 
   retention_in_days = 7
 }

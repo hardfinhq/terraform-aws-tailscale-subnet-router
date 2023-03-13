@@ -12,6 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+variable "name" {
+  type        = string
+  default     = null
+  description = "The name of the subnet router deployment. If unspecified the VPC name will be used."
+}
+
 variable "vpc" {
   type        = string
   description = "The name of the VPC where the subnet router ECS service will be launched"
@@ -67,4 +73,22 @@ variable "cpu_architecture" {
   type        = string
   default     = "X86_64"
   description = "The CPU architecture to use for the container. Either X86_64 or ARM64."
+}
+
+variable "additional_flags" {
+  type        = string
+  default     = ""
+  description = "Additional flags to pass to the tailscale up command"
+}
+
+variable "cpu" {
+  type        = number
+  default     = 256
+  description = "The CPU value to assign to the container (vCPU)"
+}
+
+variable "memory" {
+  type        = number
+  default     = 512
+  description = "The memory value to assign to the container (MiB)"
 }

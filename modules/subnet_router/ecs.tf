@@ -16,22 +16,27 @@ locals {
   tailscale_volume_name     = "var-lib-tailscale"
   tailscale_definition_path = abspath("${path.module}/container_definitions/tailscale.json")
   tailscale_container_json = templatefile(local.tailscale_definition_path, {
-    hostname           = "${var.vpc}-tailscale"
+    hostname           = local.name
     advertise_routes   = join(",", concat([data.aws_vpc.ecs.cidr_block], var.additional_routes))
+    additional_flags   = var.additional_flags
     auth_key_secret_id = data.aws_secretsmanager_secret.tailscale_auth_key.id
     image_id           = "${data.aws_ecr_repository.tailscale.repository_url}@${data.aws_ecr_image.tailscale.id}"
     volume_name        = local.tailscale_volume_name
     logs_group         = aws_cloudwatch_log_group.tailscale.name
     logs_region        = local.aws_region_name
+    cpu                = var.cpu
+    memory             = var.memory
   })
+  name         = var.name != null ? var.name : "${var.vpc}-tailscale"
+  service_name = var.name != null ? var.name : "tailscale"
 }
 
 resource "aws_ecs_task_definition" "tailscale" {
-  family                   = "${var.vpc}-tailscale"
+  family                   = local.name
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
-  cpu                      = "256" # 0.25 vCPU (256/1024)
-  memory                   = "512" # 512 MiB == 0.5 GiB
+  cpu                      = var.cpu
+  memory                   = var.memory
   execution_role_arn       = aws_iam_role.ecs_task_execution_tailscale.arn
   task_role_arn            = aws_iam_role.ecs_task_tailscale.arn
 
@@ -59,7 +64,7 @@ data "aws_ecs_cluster" "target" {
 }
 
 resource "aws_ecs_service" "tailscale" {
-  name                   = "tailscale"
+  name                   = local.service_name
   cluster                = data.aws_ecs_cluster.target.id
   task_definition        = aws_ecs_task_definition.tailscale.arn
   desired_count          = 1

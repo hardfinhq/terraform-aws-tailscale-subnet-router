@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "ecs_tasks_assume" {
 # environment variables. See:
 # - https://docs.aws.amazon.com/AmazonECS/latest/userguide/task_execution_IAM_role.html
 resource "aws_iam_role" "ecs_task_execution_tailscale" {
-  name               = "ecs-task-execution-${var.vpc}-tailscale"
+  name               = "ecs-task-execution-${local.name}"
   assume_role_policy = data.aws_iam_policy_document.ecs_tasks_assume.json
 }
 
@@ -56,7 +56,7 @@ data "aws_iam_policy_document" "ecs_task_secrets_tailscale" {
 }
 
 resource "aws_iam_policy" "ecs_task_secrets_tailscale" {
-  name        = "ecs-task-secrets-${var.vpc}-tailscale"
+  name        = "ecs-task-secrets-${local.name}"
   description = "Permissions for ECS task execution to read secrets for Tailscale in VPC ${var.vpc}"
   policy      = data.aws_iam_policy_document.ecs_task_secrets_tailscale.json
 }
@@ -75,7 +75,7 @@ resource "aws_iam_role_policy_attachment" "ecs_task_secrets_tailscale" {
 # the role it will authenticate with. See:
 # - https://docs.aws.amazon.com/AmazonECS/latest/userguide/task-iam-roles.html
 resource "aws_iam_role" "ecs_task_tailscale" {
-  name               = "ecs-task-${var.vpc}-tailscale"
+  name               = "ecs-task-${local.name}"
   assume_role_policy = data.aws_iam_policy_document.ecs_tasks_assume.json
 }
 
@@ -100,7 +100,7 @@ data "aws_iam_policy_document" "ecs_task_logs_tailscale" {
 }
 
 resource "aws_iam_policy" "ecs_task_logs_tailscale" {
-  name        = "ecs-task-logs-${var.vpc}-tailscale"
+  name        = "ecs-task-logs-${local.name}"
   description = "Permissions for ECS task to write logs for Tailscale in VPC ${var.vpc}"
   policy      = data.aws_iam_policy_document.ecs_task_logs_tailscale.json
 }
