@@ -15,7 +15,7 @@
 variable "name" {
   type        = string
   default     = null
-  description = "The name of the subnet router deployment. If unspecified the vpc name will be used."
+  description = "The name of the subnet router deployment. If unspecified the VPC name will be used."
 }
 
 variable "vpc" {
@@ -82,13 +82,13 @@ variable "additional_flags" {
 }
 
 variable "cpu" {
-  type        = string
-  default     = "256"
+  type        = number
+  default     = 256
   description = "The CPU value to assign to the container (vCPU)"
 }
 
 variable "memory" {
-  type        = string
-  default     = "512"
+  type        = number
+  default     = 512
   description = "The memory value to assign to the container (MiB)"
 }

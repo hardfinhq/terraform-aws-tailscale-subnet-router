@@ -24,8 +24,11 @@ locals {
     volume_name        = local.tailscale_volume_name
     logs_group         = aws_cloudwatch_log_group.tailscale.name
     logs_region        = local.aws_region_name
+    cpu                = var.cpu
+    memory             = var.memory
   })
-  name = var.name != null ? var.name : "${var.vpc}-tailscale"
+  name         = var.name != null ? var.name : "${var.vpc}-tailscale"
+  service_name = var.name != null ? var.name : "tailscale"
 }
 
 resource "aws_ecs_task_definition" "tailscale" {
@@ -61,7 +64,7 @@ data "aws_ecs_cluster" "target" {
 }
 
 resource "aws_ecs_service" "tailscale" {
-  name                   = local.name
+  name                   = local.service_name
   cluster                = data.aws_ecs_cluster.target.id
   task_definition        = aws_ecs_task_definition.tailscale.arn
   desired_count          = 1
