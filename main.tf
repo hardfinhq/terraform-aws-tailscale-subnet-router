@@ -15,6 +15,7 @@
 module "subnet_router" {
   source = "./modules/subnet_router"
 
+  name                        = var.name
   vpc                         = var.vpc
   subnet_group                = var.subnet_group
   assign_public_ip            = var.assign_public_ip
@@ -26,4 +27,7 @@ module "subnet_router" {
   enable_execute_command      = var.enable_execute_command
   additional_routes           = var.additional_routes
   cpu_architecture            = var.cpu_architecture
+  additional_flags            = var.additional_flags
+  cpu                         = var.cpu
+  memory                      = var.memory
 }
