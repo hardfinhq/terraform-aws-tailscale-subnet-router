@@ -13,7 +13,7 @@
 # limitations under the License.
 
 resource "aws_efs_file_system" "tailscale" {
-  creation_token = "${var.name}-tailscale"
+  creation_token = local.name
   lifecycle_policy {
     transition_to_ia = "AFTER_30_DAYS"
   }
@@ -22,7 +22,7 @@ resource "aws_efs_file_system" "tailscale" {
   }
 
   tags = {
-    Name = "${var.name}-tailscale"
+    Name = local.name
   }
 }
 

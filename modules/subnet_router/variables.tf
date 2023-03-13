@@ -12,6 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+variable "name" {
+  type        = string
+  default     = ""
+  description = "The name of the subnet router deployment. If unspecified the vpc name will be used."
+}
+
 variable "vpc" {
   type        = string
   description = "The name of the VPC where the subnet router ECS service will be launched"
@@ -83,9 +89,4 @@ variable "memory" {
   type        = string
   default     = "512"
   description = "The memory value to assign to the container (MiB)"
-}
-variable "name" {
-  type = string
-  default = ""
-  description = "The name of the subnet router deployment"
 }

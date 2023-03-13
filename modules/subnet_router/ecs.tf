@@ -16,7 +16,7 @@ locals {
   tailscale_volume_name     = "var-lib-tailscale"
   tailscale_definition_path = abspath("${path.module}/container_definitions/tailscale.json")
   tailscale_container_json = templatefile(local.tailscale_definition_path, {
-    hostname           = "${var.name}-tailscale"
+    hostname           = local.name
     advertise_routes   = join(",", concat([data.aws_vpc.ecs.cidr_block], var.additional_routes))
     additional_flags   = var.additional_flags
     auth_key_secret_id = data.aws_secretsmanager_secret.tailscale_auth_key.id
@@ -25,10 +25,11 @@ locals {
     logs_group         = aws_cloudwatch_log_group.tailscale.name
     logs_region        = local.aws_region_name
   })
+  name = var.name != "" ? var.name : "${var.vpc}-tailscale"
 }
 
 resource "aws_ecs_task_definition" "tailscale" {
-  family                   = "${var.name}-tailscale"
+  family                   = local.name
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = var.cpu
@@ -60,7 +61,7 @@ data "aws_ecs_cluster" "target" {
 }
 
 resource "aws_ecs_service" "tailscale" {
-  name                   = "${var.name}-tailscale"
+  name                   = local.name
   cluster                = data.aws_ecs_cluster.target.id
   task_definition        = aws_ecs_task_definition.tailscale.arn
   desired_count          = 1
