@@ -60,7 +60,7 @@ data "aws_ecs_cluster" "target" {
 }
 
 resource "aws_ecs_service" "tailscale" {
-  name                   = "tailscale"
+  name                   = "${var.name}-tailscale"
   cluster                = data.aws_ecs_cluster.target.id
   task_definition        = aws_ecs_task_definition.tailscale.arn
   desired_count          = 1
