@@ -86,4 +86,6 @@ resource "aws_ecs_service" "tailscale" {
     security_groups  = var.security_group_ids
     subnets          = data.aws_subnets.primary.ids
   }
+
+  depends_on = [aws_efs_mount_target.primary]
 }
