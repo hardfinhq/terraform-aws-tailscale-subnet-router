@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ARG TAILSCALE_TAG=v1.36.2
+ARG TAILSCALE_TAG=v1.38.4
 FROM docker.io/tailscale/tailscale:${TAILSCALE_TAG}
 
 COPY _docker/tailscale-entrypoint.sh /usr/local/bin/tailscale-entrypoint.sh
